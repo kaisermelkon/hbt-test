@@ -14,7 +14,16 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
-          </li>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ siteLanguage | translate}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a (click)="useLanguage('en')" class="dropdown-item">{{'English' | translate}}</a>
+              <a (click)="useLanguage('es')" class="dropdown-item">{{'Spanish' | translate}}</a>
+            </div>
+        </li>
       </ul>
     </div>
 </nav>
