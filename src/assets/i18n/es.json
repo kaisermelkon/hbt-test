@@ -1,4 +1,13 @@
 {
     "English": "Ingles",
-    "Spanish": "Español"
+    "Spanish": "Español",
+    "Home": "Inicio",
+
+    "Copyright": "© 2020 Copyright: Amahson",
+    "selectCountry": "Seleccione el pais",
+    "UnitedStatesOfAmerica": "Estados Unidos de America",
+    "Peru": "Peru",
+    "Colombia": "Colombia",
+    "India": "India",
+    "Close": "Cerrar"
 }

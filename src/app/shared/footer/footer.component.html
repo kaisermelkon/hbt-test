@@ -1,0 +1,30 @@
+<!-- Footer -->
+<footer class="navbar fixed-bottom bg-light text-center text-lg-start">
+    {{'Copyright' | translate}}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#countryModal">{{selectedCountry | translate}}</button>
+</footer>
+
+<div class="modal fade" data-backdrop="static" id="countryModal" data-target="#countryModal" tabindex="-1" aria-labelledby="selectCountry" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="selectCountry">{{'selectCountry' | translate}}</h5>
+        </div>
+        <div class="modal-body text-center">
+            <div class="dropdown">
+                Your Country is
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{selectedCountry | translate}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a (click)="selectCountry(country)" class="dropdown-item" *ngFor="let country of countries" href="#">{{country | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'Close' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

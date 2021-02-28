@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader } from '@ngx-translate/core';
+import { FooterComponent } from './shared/footer/footer.component';
 
 //This code is for AOT compilation used in build for production
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,7 +20,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomepageComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
