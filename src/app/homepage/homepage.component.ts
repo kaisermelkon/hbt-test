@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../shared/services/categories.service';
 import { ProductService } from '../shared/services/product.service';
 import { ShareDataService } from '../shared/services/share-data.service';
-import { concatMap, mergeMap } from 'rxjs/operators';
+import { catchError, concatMap, mergeMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ResponseCategoryServiceModel } from '../shared/models/responseCategoryService.model';
 import { ResponseProductServiceModel } from '../shared/models/responseProductService.model';
 import { ProductModel } from '../shared/models/product.model';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-homepage',
@@ -47,22 +48,19 @@ export class HomepageComponent implements OnInit{
   In a real life application it is never managed this way. Even the filters could be managed thorugh a api request*/
   ngOnInit(): void {
     this.productService.getProducts().subscribe((response: ResponseProductServiceModel) => {
-      console.log("products")
-      console.log(response)
         this.allProducts = response.elements;
         this.products = Array(response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].products)
         this.categoriesService.getCategories().subscribe(
           (response: ResponseCategoryServiceModel)=>{
-            console.log("categories")
-            console.log(response)
             this.shareData.selectedCountry.subscribe((res3)=>{
-              this.products = this.filterAllProductsByCountry(this.allProducts, res3)
               this.country = res3;
               this.categories = response.elements.filter((el: any)=> el.country === res3)[0].categories
+              this.changeCategory('all', this.products, res3, this.allProducts)
             })
           }
         )
-      })
+      }
+    )
   }
 
   changeCategory(category: string, products: Array<ProductModel>, country: string, allProducts: any){
@@ -116,7 +114,6 @@ export class HomepageComponent implements OnInit{
   }
 
   openDetail(product: any){
-    console.log(product)
     this.shareData.changeSelectedItem(product)
     this.router.navigate([`/product/${product.name}`]);
     return product.name;

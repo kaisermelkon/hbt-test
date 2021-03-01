@@ -44,13 +44,11 @@ export class ProductPageComponent implements OnInit {
   constructor(private dataService: ShareDataService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.dataSet)
     if(!this.dataService.selectedItem){
       this.router.navigate(['/home']);
     }
     else{
       this.product = this.dataService.selectedItem 
-      console.log(this.product)
       this.buildChart(this.product)
     }
   }
