@@ -8,50 +8,7 @@ import { ProductService } from '../shared/services/product.service';
 })
 export class HomepageComponent implements OnInit {
 
-  public products: Array<any> = [
-    {
-      name: 'PoloShirt',
-      photo: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg',
-      price: 45,
-      availability: true,
-      category: 'Cloth',
-      historicalPrices: [
-        {
-          date: '20/02/2021',
-          price: 38
-        },
-        {
-          date: '21/02/2021',
-          price: 38
-        },
-        {
-          date: '22/02/2021',
-          price: 45
-        },
-      ]
-    },
-    {
-      name: 'Towel',
-      photo: 'https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg',
-      price: 30,
-      availability: false,
-      category: 'House',
-      historicalPrices: [
-        {
-          date: '20/02/2021',
-          price: 24
-        },
-        {
-          date: '21/02/2021',
-          price: 23
-        },
-        {
-          date: '22/02/2021',
-          price: 38
-        },
-      ]
-    }
-  ]
+  public products: Array<any> = []
 
   public categories: Array<string> = ['Cloth', 'House', 'Electronics'];
 
@@ -61,7 +18,8 @@ export class HomepageComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (response)=>{
         console.log(response)
-        this.products = response.products;
+        this.products = response.elements;
+        console.log(this.products.length)
       }
     )
   }
