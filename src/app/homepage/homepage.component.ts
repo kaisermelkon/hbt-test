@@ -32,6 +32,11 @@ export class HomepageComponent implements OnInit{
     });
   }
 
+  /*NOTE: Given the nature of the mock service it was not manage how it should be, 
+  because the service doesn't change response according to headers or parameters the country filter had to be done
+  in the front end instead of using an interceptor or changing the request accordingly and only receiving the
+  products for that country, this way it is much more convoluted and inefficent. 
+  In a real life application it is never managed this way. Even the filters could be managed thorugh a api request*/
   ngOnInit(): void {
     this.productService.getProducts().pipe(
       mergeMap((response: any) => {
