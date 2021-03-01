@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../shared/services/product.service';
 
 @Component({
   selector: 'app-homepage',
@@ -54,9 +55,14 @@ export class HomepageComponent implements OnInit {
 
   public categories: Array<string> = ['Cloth', 'House', 'Electronics'];
 
-  constructor() { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.productService.getProducts().subscribe(
+      (response)=>{
+        console.log(response)
+      }
+    )
   }
 
 }
