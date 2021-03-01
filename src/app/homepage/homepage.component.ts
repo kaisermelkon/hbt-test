@@ -61,6 +61,7 @@ export class HomepageComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (response)=>{
         console.log(response)
+        this.products = response.products;
       }
     )
   }

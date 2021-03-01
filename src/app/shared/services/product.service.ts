@@ -12,6 +12,6 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   public getProducts(): Observable<any> {
-    return this.http.get(`${this.baseUrl}623b449e-cf84-4e8e-948f-dd474394befa`);
+    return this.http.get(`${this.baseUrl}cb2bea6f-ed59-4329-8d83-b3ba5e7753e6`);
   }
 }
