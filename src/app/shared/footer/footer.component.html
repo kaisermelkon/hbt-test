@@ -17,7 +17,7 @@
                   {{selectedCountry | translate}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a (click)="selectCountry(country)" class="dropdown-item" *ngFor="let country of countries" href="#">{{country | translate}}</a>
+                  <a (click)="selectCountry(country)" class="dropdown-item" *ngFor="let country of countries">{{country | translate}}</a>
                 </div>
             </div>
         </div>

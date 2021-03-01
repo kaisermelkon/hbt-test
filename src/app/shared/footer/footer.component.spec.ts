@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router, RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { ShareDataService } from '../services/share-data.service';
 
 import { FooterComponent } from './footer.component';
 
@@ -10,7 +13,8 @@ describe('FooterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ FooterComponent ],
-      imports: [TranslateModule.forRoot()]
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), RouterTestingModule.withRoutes([]),],
+      providers: [ShareDataService],
     })
     .compileComponents();
   });
