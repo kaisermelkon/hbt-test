@@ -5,12 +5,16 @@ import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomepageComponent,
   },
   {
     path: 'product/:name',
     component: ProductPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 
 ];
