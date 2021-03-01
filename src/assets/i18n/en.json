@@ -28,5 +28,8 @@
     "ShowAll": "Show All",
     "Accept": "Accept",
     "Search": "Search",
-    "NoAvailableProducts": "No Available Products"
+    "NoAvailableProducts": "No Available Products",
+    "Buy": "Buy",
+    "HistoryOfPrices": "Historical Prices",
+    "Analysis": "Analysis"
 }

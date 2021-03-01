@@ -28,5 +28,8 @@
     "ShowAll": "Mostrar Todos",
     "Accept": "Aceptar",
     "Search": "Buscar",
-    "NoAvailableProducts": "No Hay Productos Disponibles"
+    "NoAvailableProducts": "No Hay Productos Disponibles",
+    "Buy": "Comprar",
+    "HistoryOfPrices": "Precios Historicos",
+    "Analysis": "Analisis"
 }
