@@ -16,14 +16,14 @@
             </li>
         </ul>
         <form class="form-inline">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">Sort</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">{{'Sort' | translate}}</button>
             <div class="md-form my-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <input [(ngModel)]="searchWord" name="searchWord" (input)="searchThis(category, products, country, allProducts)" class="form-control mr-sm-2" type="text" placeholder="{{'Search' | translate}}" aria-label="Search">
             </div>
         </form>
         </div>
     </nav>
-    <section class="text-center mb-4">
+    <section *ngIf="products.length>0" class="text-center mb-4">
         <div class="row">
             <div *ngFor="let product of products" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
                 <div  class="card shadow">
@@ -34,12 +34,12 @@
                     </a>
                 </div>
                 <div *ngIf="product.availability" class="card-body text-center">
-                    <a href="" class="grey-text">
+                    <a class="grey-text">
                     <h5>{{product.name | translate}}</h5>
                     </a>
                     <h5>
                     <strong>
-                        <a href="" class="dark-grey-text">{{product.category | translate}}
+                        <a class="dark-grey-text">{{product.category | translate}}
                         </a>
                     </strong>
                     </h5>
@@ -62,7 +62,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="filter">Sort</h5>
+          <h5 class="modal-title" id="filter">{{'SortBy' | translate}}</h5>
         </div>
         <div class="row modal-body">
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3">
@@ -70,19 +70,19 @@
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="radio" name="sort" id="exampleRadios1" value="Lowest Price" formControlName="sort" checked>
                         <label class="form-check-label" for="exampleRadios1">
-                        Lowest Price
+                        {{'LowestPrice' | translate}}
                         </label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="radio" name="sort" id="exampleRadios2" value="Highest Price" formControlName="sort">
                         <label class="form-check-label" for="exampleRadios2">
-                            Highest Price
+                            {{'HighestPrice' | translate}}
                         </label>
                     </div>
                     <div class="form-check mb-2">
                         <input class="form-check-input" type="radio" name="sort" id="exampleRadios3" value="Best Selling" formControlName="sort">
                         <label class="form-check-label" for="exampleRadios3">
-                        Best Selling
+                            {{'BestSelling' | translate}}
                         </label>
                     </div>
                 </form>
@@ -90,13 +90,29 @@
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-3 mt-3">
                 <div class="btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-secondary active">
-                      <input class="checkbox" (click)="changeAvailable(products, country, allProducts)" type="checkbox" autocomplete="off"> {{showAvailability()}}
+                      <input class="checkbox" (click)="changeAvailable(products, country, allProducts)" type="checkbox" autocomplete="off"> {{showAvailability() | translate}}
                     </label>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button (click)="accept(products, form.value.sort)" type="button" class="btn btn-secondary" data-dismiss="modal">{{'Accept' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" data-backdrop="static" id="modalMensaje" data-target="#modalMensaje" tabindex="-1" aria-labelledby="filter" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalMensajeTitle">{{'SortBy' | translate}}</h5>
+        </div>
+        <div class="row modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button (click)="accept(products, form.value.sort)" type="button" class="btn btn-secondary" data-dismiss="modalMensaje">{{'Accept' | translate}}</button>
         </div>
       </div>
     </div>

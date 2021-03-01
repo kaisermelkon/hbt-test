@@ -26,6 +26,8 @@ export class HomepageComponent implements OnInit{
 
   public form: FormGroup;
 
+  public searchWord: string = '';
+
   constructor(private productService: ProductService, private categoriesService: CategoriesService, private shareData: ShareDataService, fb: FormBuilder) { 
     this.form = fb.group({
       sort: ['', Validators.required]
@@ -96,6 +98,14 @@ export class HomepageComponent implements OnInit{
 
   filterByAvailability(products: any[]){
     return this.availability ? products.filter((product)=> product.availability === this.availability) : products
+  }
+
+  searchThis(category: any, products: any, country: any, allProducts: any){
+    this.changeCategory(category || 'all', products, country, allProducts)
+    this.products = this.products.filter((product: any)=> {
+      let arrayelement = product.name.toLowerCase()
+      return arrayelement.includes(this.searchWord)
+    })
   }
 
 }
