@@ -13,6 +13,8 @@ export class HomepageComponent implements OnInit{
 
   public products: Array<any> = []
 
+  private country: string ='';
+
   private allProducts: Array<any> = []
 
   public categories: Array<string> = ['Cloth', 'House', 'Electronics'];
@@ -27,7 +29,8 @@ export class HomepageComponent implements OnInit{
         return this.shareData.selectedCountry
       }
     )).subscribe((res3) => {
-      this.products = this.allProducts.filter((el: any)=> el.country === res3)[0].products
+      this.products = this.filterAllProductsByCountry(res3)
+      this.country = res3;
     });
     this.categoriesService.getCategories().subscribe(
       (response)=>{
@@ -35,6 +38,20 @@ export class HomepageComponent implements OnInit{
         this.categories = response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].categories
       }
     )
+  }
+
+  changeCategory(category: any){
+    console.log(category)
+    if(category === 'all'){
+      this.products = this.filterAllProductsByCountry(this.country)
+    }else{
+      console.log(this.products.filter((el: any)=> el.category === category))
+      this.products = this.filterAllProductsByCountry(this.country).filter((el: any)=> el.category === category)
+    }
+  }
+
+  filterAllProductsByCountry(country: string){
+    return this.allProducts.filter((el: any)=> el.country === country)[0].products
   }
 
 }
