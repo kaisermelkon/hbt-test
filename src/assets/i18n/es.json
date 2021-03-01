@@ -18,5 +18,15 @@
     "PoloShirt": "Camisa Polo",
     "Towel": "Toalla",
     "unavailable": "No Disponible",
-    "House": "Hogar"
+    "House": "Hogar",
+    "Sort": "Ordenar",
+    "SortBy": "Ordenar Por",
+    "LowestPrice": "Menor Precio",
+    "HighestPrice": "Mayor Precio",
+    "BestSelling": "Mas Vendido",
+    "ShowAvailable": "Mostrar Disponibles",
+    "ShowAll": "Mostrar Todos",
+    "Accept": "Aceptar",
+    "Search": "Buscar",
+    "NoAvailableProducts": "No Hay Productos Disponibles"
 }

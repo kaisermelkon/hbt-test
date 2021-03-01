@@ -55,6 +55,9 @@
             </div> 
         </div> 
     </section>
+    <section *ngIf="products.length === 0" class="text-center">
+        <h3>{{'NoAvailableProducts' | translate}}</h3>
+    </section>
 </div>
 
 

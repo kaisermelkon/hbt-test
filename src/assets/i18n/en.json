@@ -18,5 +18,15 @@
     "PoloShirt": "Polo Shirt",
     "Towel": "Towel",
     "unavailable": "Unavailable",
-    "House": "Home"
+    "House": "Home",
+    "Sort": "Sort",
+    "SortBy": "SortBy",
+    "LowestPrice": "Lowest Price",
+    "HighestPrice": "Highest Price",
+    "Best Selling": "Best Selling",
+    "ShowAvailable": "Show Available",
+    "ShowAll": "Show All",
+    "Accept": "Accept",
+    "Search": "Search",
+    "NoAvailableProducts": "No Available Products"
 }
