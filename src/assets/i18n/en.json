@@ -9,5 +9,14 @@
     "Peru": "Peru",
     "Colombia": "Colombia",
     "India": "India",
-    "Close": "Close"
+    "Close": "Close",
+
+    "Categories": "Categories",
+    "All": "All",
+    "Cloth": "Cloth",
+    "Electronics": "Electronics",
+    "PoloShirt": "Polo Shirt",
+    "Towel": "Towel",
+    "unavailable": "Unavailable",
+    "House": "Home"
 }

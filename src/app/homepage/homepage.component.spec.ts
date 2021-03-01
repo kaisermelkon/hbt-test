@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { HomepageComponent } from './homepage.component';
 
@@ -8,7 +9,8 @@ describe('HomepageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomepageComponent ]
+      declarations: [ HomepageComponent ],
+      imports: [TranslateModule.forRoot()]
     })
     .compileComponents();
   });

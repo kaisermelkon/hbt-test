@@ -1,1 +1,58 @@
-<p>homepage works!</p>
+<div class="container mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info mt-3 mb-5 rounded-pill">
+        <span class="navbar-brand">{{'Categories' | translate}}:</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            <a class="nav-link">{{'All' | translate}}
+            </a>
+            </li>
+            <li *ngFor="let category of categories" class="nav-item">
+            <a class="nav-link">{{category | translate}}</a>
+            </li>
+        </ul>
+        <form class="form-inline">
+            <div class="md-form my-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            </div>
+        </form>
+        </div>
+    </nav>
+    <section class="text-center mb-4">
+        <div class="row">
+            <div *ngFor="let product of products" class="col-lg-3 col-md-6 mb-4">
+                <div  class="card shadow">
+                <div>
+                    <img [src]="product.photo" class="card-img-top" alt="">
+                    <a>
+                    <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div *ngIf="product.availability" class="card-body text-center">
+                    <a href="" class="grey-text">
+                    <h5>{{product.name | translate}}</h5>
+                    </a>
+                    <h5>
+                    <strong>
+                        <a href="" class="dark-grey-text">{{product.category | translate}}
+                        </a>
+                    </strong>
+                    </h5>
+
+                    <h4 class="font-weight-bold blue-text">
+                    <strong>{{product.price | currency}}</strong>
+                    </h4>
+                </div>
+                <div *ngIf="!product.availability" class="card-body text-center">
+                    <h5 class="mt-4 pt-2 pb-2 text-white bg-danger rounded-pill">{{'unavailable' | translate}}</h5>
+                </div>
+                </div>
+            </div> 
+        </div> 
+    </section>
+</div>
+     

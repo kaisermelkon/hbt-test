@@ -9,5 +9,14 @@
     "Peru": "Peru",
     "Colombia": "Colombia",
     "India": "India",
-    "Close": "Cerrar"
+    "Close": "Cerrar",
+
+    "Categories": "Categorias",
+    "All": "Todas",
+    "Cloth": "Ropa",
+    "Electronics": "Electronicos",
+    "PoloShirt": "Camisa Polo",
+    "Towel": "Toalla",
+    "unavailable": "No Disponible",
+    "House": "Hogar"
 }
