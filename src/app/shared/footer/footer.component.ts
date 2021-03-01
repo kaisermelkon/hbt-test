@@ -10,7 +10,7 @@ import { ShareDataService } from '../services/share-data.service';
 export class FooterComponent implements OnInit {
 
 
-  public countries: Array<string> = ['Colombia', 'UnitedStatesOfAmerica', 'Peru', 'India']
+  public countries: Array<string> = ['Colombia', 'UnitedStatesOfAmerica', 'India']
   public selectedCountry: string = 'UnitedStatesOfAmerica'
 
   constructor(private router: Router, private shareData: ShareDataService) { }
