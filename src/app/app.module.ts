@@ -10,6 +10,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader } from '@ngx-translate/core';
 import { FooterComponent } from './shared/footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //This code is for AOT compilation used in build for production
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,7 +35,9 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient],
       }
-  })
+    }),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
