@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ProductService } from '../shared/services/product.service';
@@ -15,7 +16,7 @@ describe('HomepageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ HomepageComponent ],
-      imports: [TranslateModule.forRoot(), HttpClientTestingModule, ReactiveFormsModule],
+      imports: [TranslateModule.forRoot(), HttpClientTestingModule, ReactiveFormsModule, FormsModule ],
       providers: [ProductService]
     })
     .compileComponents();
@@ -88,7 +89,26 @@ describe('HomepageComponent', () => {
     expect(component.accept(products, 'Lowest Price')[0]).toEqual(products[0])
     expect(component.accept(products, 'Highest Price')[0]).toEqual(products[0])
     expect(component.accept(products, 'Best Selling')[0]).toEqual(products[0])
+  });
 
+  it('should change value', () => {
+    spyOn(component, 'searchThis').and.callThrough();
+    const inputDe = fixture.debugElement.query(By.css('input[name="searchWord"]'));
+    const inputEl = inputDe.nativeElement;
+    inputEl.value = 'Updated Task 1';
+    inputEl.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(component.searchWord).toBe('')
+  });
+
+  it('should seacrh this', () => {
+    spyOn(component, 'searchThis').and.callThrough();
+    let products: any =  [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
+    let allProducts: any = [{country: 'Colombia', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]},
+    {country: 'UnitedStatesOfAmerica', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Notebook', price: 23, availability: true, quantitySold: 7,category: 'School'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]}
+    ]
+    component.searchThis('all', products, 'Colombia', allProducts)
+    expect(component.products).toEqual(products)
   });
 
 });
