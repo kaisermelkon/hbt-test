@@ -11,6 +11,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader } from '@ngx-translate/core';
 import { FooterComponent } from './shared/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 //This code is for AOT compilation used in build for production
 export function HttpLoaderFactory(http: HttpClient) {
@@ -22,7 +23,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomepageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProductPageComponent
   ],
   imports: [
     BrowserModule,
