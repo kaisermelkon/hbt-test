@@ -19,7 +19,7 @@ describe('HomepageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ HomepageComponent ],
-      imports: [TranslateModule.forRoot(), HttpClientTestingModule, ReactiveFormsModule, FormsModule, RouterTestingModule.withRoutes([]), ],
+      imports: [TranslateModule.forRoot(), HttpClientTestingModule, ReactiveFormsModule, FormsModule, RouterTestingModule.withRoutes([{path: 'product/:product', component: HomepageComponent}]), ],
       providers: [ProductService]
     })
     .compileComponents();
@@ -38,8 +38,8 @@ describe('HomepageComponent', () => {
 
   it('should change category', () => {
     spyOn(component, 'changeCategory').and.callThrough();
-    let allProducts: any = AllProductsMock
-    let products: any =  ProductsMock
+    const allProducts: any = [{country: 'Colombia',products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'},{name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]},{country: 'UnitedStatesOfAmerica', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Notebook', price: 23, availability: true, quantitySold: 7,category: 'School'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]}]
+    const products: any =  [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
     const e = fixture.debugElement.nativeElement.querySelectorAll('.nav-link');
     e[1].click();
     expect(component.changeCategory).toHaveBeenCalled()
@@ -56,16 +56,16 @@ describe('HomepageComponent', () => {
 
   it('should change products by country', () => {
     spyOn(component, 'filterAllProductsByCountry').and.callThrough();
-    let allProducts: any = AllProductsMock
-    let products: any =  ProductsMock
-    let result = component.filterAllProductsByCountry(allProducts,  'Colombia')
+    const allProducts: any = [{country: 'Colombia',products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'},{name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]},{country: 'UnitedStatesOfAmerica', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Notebook', price: 23, availability: true, quantitySold: 7,category: 'School'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]}]
+    const products: any = [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
+    const result = component.filterAllProductsByCountry(allProducts,  'Colombia')
     expect(result).toEqual(products)
   });
 
   it('should change products by availability', () => {
     spyOn(component, 'filterByAvailability').and.callThrough();
     component.availability = true;
-    let products: any =  ProductsMock
+    const products: any =  [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
     expect(component.filterByAvailability(products).length).toBe(2)
     component.availability = false;
     expect(component.filterByAvailability(products)).toEqual(products)
@@ -74,15 +74,15 @@ describe('HomepageComponent', () => {
   it('should change available', () => {
     spyOn(component, 'changeAvailable').and.callThrough();
     component.availability = true;
-    let allProducts: any = AllProductsMock
-    let products: any =  ProductsMock
+    const allProducts: any = [{country: 'Colombia',products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'},{name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]},{country: 'UnitedStatesOfAmerica', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Notebook', price: 23, availability: true, quantitySold: 7,category: 'School'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]}]
+    const products: any = [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
     component.changeAvailable(products, 'Colombia', allProducts)
     expect(component.availability).toBe(false)
   });
 
   it('should accept filter', () => {
     spyOn(component, 'accept').and.callThrough();
-    let products: any =  ProductsMock
+    const products: any =  [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
     expect(component.accept(products, 'Lowest Price')[0]).toEqual(products[0])
     expect(component.accept(products, 'Highest Price')[0]).toEqual(products[0])
     expect(component.accept(products, 'Best Selling')[0]).toEqual(products[0])
@@ -98,12 +98,19 @@ describe('HomepageComponent', () => {
     expect(component.searchWord).toBe('')
   });
 
-  it('should seacrh this', () => {
+  it('should search this', () => {
     spyOn(component, 'searchThis').and.callThrough();
-    let products: any =  ProductsMock
-    let allProducts: any = AllProductsMock
+    const products: any =  [{name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]
+    const allProducts: any = [{country: 'Colombia',products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'},{name: 'Toaster', price: 23, availability: true, quantitySold: 7,category: 'Home'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]},{country: 'UnitedStatesOfAmerica', products: [{name: 'TShirt', price: 15, availability: true, quantitySold: 5,category: 'Cloth'}, {name: 'Notebook', price: 23, availability: true, quantitySold: 7,category: 'School'},{name: 'Iphone', price: 56, availability: false, quantitySold: 5,category: 'Electronics'}]}]
     component.searchThis('all', products, 'Colombia', allProducts)
     expect(component.products).toEqual(products)
+  });
+
+  it('should open detail', () => {
+    spyOn(component, 'openDetail').and.callThrough();
+    const products: any =  {name: 'TShirt',price: 15, availability: true, quantitySold: 5,category: 'Cloth'}
+    expect(component.openDetail(products)).toEqual(products.name)
+
   });
 
 });

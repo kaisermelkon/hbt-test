@@ -115,10 +115,11 @@ export class HomepageComponent implements OnInit{
     })
   }
 
-  openDetail(product: ProductModel){
+  openDetail(product: any){
     console.log(product)
     this.shareData.changeSelectedItem(product)
     this.router.navigate([`/product/${product.name}`]);
+    return product.name;
   }
 
 }

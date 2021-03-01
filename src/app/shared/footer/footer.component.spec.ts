@@ -12,7 +12,7 @@ describe('FooterComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ FooterComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]),],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([{path: 'home', component: FooterComponent}]),],
       providers: [ShareDataService],
     })
     .compileComponents();

@@ -55,9 +55,10 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
-  buildChart(product: ProductModel){
+  buildChart(product: any){
     this.dataSet[0].name = product.name
     product.historicalPrices.forEach((ele: HistoricalPricesModel)=> this.dataSet[0].series.push({name: ele.date, value: ele.price}))
+    return this.dataSet[0].name
   }
 
 }
