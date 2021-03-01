@@ -12,6 +12,8 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { FooterComponent } from './shared/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //This code is for AOT compilation used in build for production
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,7 +41,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
