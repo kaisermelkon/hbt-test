@@ -5,6 +5,9 @@ import { ShareDataService } from '../shared/services/share-data.service';
 import { concatMap, mergeMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ResponseCategoryServiceModel } from '../shared/models/responseCategoryService.model';
+import { ResponseProductServiceModel } from '../shared/models/responseProductService.model';
+import { ProductModel } from '../shared/models/product.model';
 
 @Component({
   selector: 'app-homepage',
@@ -13,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit{
 
-  public products: Array<any> = []
+  public products: Array<ProductModel> =[];
 
   public availability: boolean = false;
 
@@ -43,11 +46,14 @@ export class HomepageComponent implements OnInit{
   products for that country, this way it is much more convoluted and inefficent. 
   In a real life application it is never managed this way. Even the filters could be managed thorugh a api request*/
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((response: any) => {
+    this.productService.getProducts().subscribe((response: ResponseProductServiceModel) => {
+      console.log("products")
+      console.log(response)
         this.allProducts = response.elements;
-        this.products = response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].products
+        this.products = Array(response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].products)
         this.categoriesService.getCategories().subscribe(
-          (response)=>{
+          (response: ResponseCategoryServiceModel)=>{
+            console.log("categories")
             console.log(response)
             this.shareData.selectedCountry.subscribe((res3)=>{
               this.products = this.filterAllProductsByCountry(this.allProducts, res3)
@@ -59,7 +65,7 @@ export class HomepageComponent implements OnInit{
       })
   }
 
-  changeCategory(category: any, products: any, country: any, allProducts: any){
+  changeCategory(category: string, products: Array<ProductModel>, country: string, allProducts: any){
     this.category = category;
     if(category === 'all'){
       products = this.filterAllProductsByCountry(allProducts, country)
@@ -69,11 +75,11 @@ export class HomepageComponent implements OnInit{
     this.products = this.filterByAvailability(products);
   }
 
-  filterAllProductsByCountry(allProducts: any, country: any){
+  filterAllProductsByCountry(allProducts: any, country: string){
     return allProducts.filter((el: any)=> el.country === country)[0].products
   }
 
-  changeAvailable(products: any, country: any, allProducts: any){
+  changeAvailable(products: Array<ProductModel>, country: string, allProducts: any){
     this.availability = !this.availability
     this.changeCategory(this.category || 'all', products, country, allProducts)
   }
@@ -82,7 +88,7 @@ export class HomepageComponent implements OnInit{
     return this.availability ? 'ShowAll' : 'ShowAvailable'
   }
 
-  accept(products: any[], sort: any){
+  accept(products: Array<ProductModel>, sort: string){
     switch (sort) {
       case 'Lowest Price':
         products.sort((a,b)=> a.price - b.price)
@@ -97,11 +103,11 @@ export class HomepageComponent implements OnInit{
     return products;
   }
 
-  filterByAvailability(products: any[]){
+  filterByAvailability(products: Array<ProductModel>){
     return this.availability ? products.filter((product)=> product.availability === this.availability) : products
   }
 
-  searchThis(category: any, products: any, country: any, allProducts: any){
+  searchThis(category: string, products: Array<ProductModel>, country: string, allProducts: any){
     this.changeCategory(category || 'all', products, country, allProducts)
     this.products = this.products.filter((product: any)=> {
       let arrayelement = product.name.toLowerCase()
@@ -109,7 +115,7 @@ export class HomepageComponent implements OnInit{
     })
   }
 
-  openDetail(product: any){
+  openDetail(product: ProductModel){
     console.log(product)
     this.shareData.changeSelectedItem(product)
     this.router.navigate([`/product/${product.name}`]);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { HistoricalPricesModel } from '../shared/models/historicalPrices.model';
+import { ProductModel } from '../shared/models/product.model';
 import { ShareDataService } from '../shared/services/share-data.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { ShareDataService } from '../shared/services/share-data.service';
 })
 export class ProductPageComponent implements OnInit {
 
-  public product: any;
+  public product!: ProductModel;
 
   public dataSet: any[] = 
   [{
@@ -53,9 +55,9 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
-  buildChart(product: any){
+  buildChart(product: ProductModel){
     this.dataSet[0].name = product.name
-    product.historicalPrices.forEach((ele: any)=> this.dataSet[0].series.push({name: ele.date, value: ele.price}))
+    product.historicalPrices.forEach((ele: HistoricalPricesModel)=> this.dataSet[0].series.push({name: ele.date, value: ele.price}))
   }
 
 }
