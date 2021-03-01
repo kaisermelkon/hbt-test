@@ -45,7 +45,6 @@ export class HomepageComponent implements OnInit{
     if(category === 'all'){
       this.products = this.filterAllProductsByCountry(this.country)
     }else{
-      console.log(this.products.filter((el: any)=> el.category === category))
       this.products = this.filterAllProductsByCountry(this.country).filter((el: any)=> el.category === category)
     }
   }
