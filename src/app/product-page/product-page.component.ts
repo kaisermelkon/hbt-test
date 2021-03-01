@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ShareDataService } from '../shared/services/share-data.service';
 
 @Component({
   selector: 'app-product-page',
@@ -8,42 +10,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 })
 export class ProductPageComponent implements OnInit {
 
-  public single: any[] = [];
-  multi: any[] = [
-  {
+  public product: any;
+
+  public dataSet: any[] = 
+  [{
     name: 'Cyan',
     series: [
-      {
-        name: 5,
-        value: 2650
-      },
-      {
-        name: 10,
-        value: 2800      },
-      {
-        name: 15,
-        value: 2000
-      }
     ]
-  },
-  {
-    name: 'Yellow',
-    series: [
-      {
-        name: 5,
-        value: 2500
-      },
-      {
-        name: 10,
-        value: 3100
-      },
-      {
-        name: 15,
-        value: 2350
-      }
-    ]
-  }
-];
+  }];
 
   view: any[number] = [700, 400];
 
@@ -53,9 +27,9 @@ export class ProductPageComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Number';
+  xAxisLabel = 'Date';
   showYAxisLabel = true;
-  yAxisLabel = 'Color Value';
+  yAxisLabel = 'Price';
   timeline = true;
 
   colorScheme = {
@@ -65,9 +39,23 @@ export class ProductPageComponent implements OnInit {
   // line, area
   autoScale = true;
 
-  constructor() { }
+  constructor(private dataService: ShareDataService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log(this.dataSet)
+    if(!this.dataService.selectedItem){
+      this.router.navigate(['/home']);
+    }
+    else{
+      this.product = this.dataService.selectedItem 
+      console.log(this.product)
+      this.buildChart(this.product)
+    }
+  }
+
+  buildChart(product: any){
+    this.dataSet[0].name = product.name
+    product.historicalPrices.forEach((ele: any)=> this.dataSet[0].series.push({name: ele.date, value: ele.price}))
   }
 
 }

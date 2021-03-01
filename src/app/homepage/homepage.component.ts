@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../shared/services/categories.service';
 import { ProductService } from '../shared/services/product.service';
 import { ShareDataService } from '../shared/services/share-data.service';
-import { mergeMap } from 'rxjs/operators';
+import { concatMap, mergeMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -22,13 +23,15 @@ export class HomepageComponent implements OnInit{
 
   public allProducts: Array<any> = []
 
-  public categories: Array<string> = ['Cloth', 'House', 'Electronics'];
+  public allCategories: Array<any> = []
+
+  public categories: Array<any> = ['Cloth', 'House', 'Electronics'];
 
   public form: FormGroup;
 
   public searchWord: string = '';
 
-  constructor(private productService: ProductService, private categoriesService: CategoriesService, private shareData: ShareDataService, fb: FormBuilder) { 
+  constructor(private productService: ProductService, private categoriesService: CategoriesService, private shareData: ShareDataService, fb: FormBuilder, private router: Router) { 
     this.form = fb.group({
       sort: ['', Validators.required]
     });
@@ -40,22 +43,20 @@ export class HomepageComponent implements OnInit{
   products for that country, this way it is much more convoluted and inefficent. 
   In a real life application it is never managed this way. Even the filters could be managed thorugh a api request*/
   ngOnInit(): void {
-    this.productService.getProducts().pipe(
-      mergeMap((response: any) => {
+    this.productService.getProducts().subscribe((response: any) => {
         this.allProducts = response.elements;
         this.products = response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].products
-        return this.shareData.selectedCountry
-      }
-    )).subscribe((res3) => {
-      this.products = this.filterAllProductsByCountry(this.allProducts, res3)
-      this.country = res3;
-    });
-    this.categoriesService.getCategories().subscribe(
-      (response)=>{
-        console.log(response)
-        this.categories = response.elements.filter((el: any)=> el.country === 'UnitedStatesOfAmerica')[0].categories
-      }
-    )
+        this.categoriesService.getCategories().subscribe(
+          (response)=>{
+            console.log(response)
+            this.shareData.selectedCountry.subscribe((res3)=>{
+              this.products = this.filterAllProductsByCountry(this.allProducts, res3)
+              this.country = res3;
+              this.categories = response.elements.filter((el: any)=> el.country === res3)[0].categories
+            })
+          }
+        )
+      })
   }
 
   changeCategory(category: any, products: any, country: any, allProducts: any){
@@ -106,6 +107,12 @@ export class HomepageComponent implements OnInit{
       let arrayelement = product.name.toLowerCase()
       return arrayelement.includes(this.searchWord)
     })
+  }
+
+  openDetail(product: any){
+    console.log(product)
+    this.shareData.changeSelectedItem(product)
+    this.router.navigate([`/product/${product.name}`]);
   }
 
 }

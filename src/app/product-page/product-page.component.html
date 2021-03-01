@@ -1,49 +1,37 @@
-<div class="container dark-grey-text mt-5">
-
-    <!--Grid row-->
-    <div class="row wow fadeIn">
-
-      <!--Grid column-->
-      <div class="col-md-6 mb-4">
-
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt="">
-
+<div *ngIf="product" class="container dark-grey-text mt-5">
+    <div class="row text-center">
+      <div class="col-md-6 mb-4 image-container">
+        <img [src]="product.photo" class="img-fluid image" alt="">
       </div>
-      <!--Grid column-->
-
-      <!--Grid column-->
       <div class="col-md-6 mb-4">
-
-        <!--Content-->
         <div class="p-4">
-
           <div class="mb-3">
-            <h3>TShirt</h3>
+            <h3>{{product.name | translate}}</h3>
+            <h4>{{product.category | translate}}</h4>
           </div>
-
           <p class="lead">
-            <span>$100</span>
+            <span *ngIf="product.availability">{{product.price | currency}}</span>
+            <span *ngIf="!product.availability">
+                <del>{{product.price | currency}}</del>
+            </span>
           </p>
-
-          <p>Avialable</p>
-
-
+        <div *ngIf="product.name && !product.availability" class="text-center">
+            <h5 class="mt-4 pt-2 pb-2 text-white bg-danger rounded-pill">{{'unavailable' | translate}}</h5>
         </div>
-        <!--Content-->
-
+        <div *ngIf="product.availability" class="text-center">
+            <h5 class="mt-4 pt-2 pb-2 text-white bg-primary rounded-pill">{{'Buy' | translate}}</h5>
+        </div>
+        </div>
       </div>
-      <!--Grid column-->
-
     </div>
-
     <div class="mt-5">
-        <h3 class="mb-5 text-center">Historial Prices</h3>
+        <h3 class="mb-5 text-center">{{'HistorialPrices' | translate}}</h3>
         <div class="row">
             <div class="col-md-12 col-lg-8 mb-4">
                 <ngx-charts-line-chart
                 [view]="view"
                 [scheme]="colorScheme"
-                [results]="multi"
+                [results]="dataSet"
                 [gradient]="gradient"
                 [xAxis]="showXAxis"
                 [yAxis]="showYAxis"
@@ -57,7 +45,7 @@
                 </ngx-charts-line-chart>
             </div>
             <div class="col-md-12 col-lg-4 mb-4">
-                <h3 class="text-center">Analisis</h3>
+                <h3 class="text-center">{{'Analisis' | translate}}</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at orci turpis. Vestibulum ut arcu mauris. Integer pellentesque tincidunt dolor, non pulvinar orci vehicula id. Nunc finibus tortor sed pretium commodo. Quisque sed leo nec ex tincidunt pellentesque vel in sapien. Aliquam dictum, massa a posuere faucibus, orci tortor volutpat enim, congue elementum purus enim ut lorem. Nunc vel est nec ligula tempus placerat eu in turpis.</p>
             </div>
         </div>
