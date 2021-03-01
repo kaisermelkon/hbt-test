@@ -16,7 +16,8 @@ describe('ShareDataService', () => {
 
   it('should change country', () => {
     spyOn(service, 'changeCountry').and.callThrough();
-    expect(service.changeCountry).toHaveBeenCalledWith('Colombia');
-    expect(service.changeCountry).toBe('Colombia');
+    service.changeCountry('Colombia')
+    expect(service.changeCountry).toHaveBeenCalledWith('Colombia')
+    expect(service.selectedCountry.value).toBe('Colombia');
   });
 });
