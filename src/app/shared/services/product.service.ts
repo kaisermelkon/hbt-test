@@ -13,6 +13,6 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   public getProducts(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}cb2bea6f-ed59-4329-8d83-b3ba5e7753e6`);
+    return this.http.get(`${environment.baseUrl}b5bf0d64-4474-4966-ae5e-5f42e246bc99`);
   }
 }

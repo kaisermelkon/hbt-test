@@ -27,7 +27,7 @@ describe('ProductService', () => {
             expect(products.elements.length).toBe(3,
                 "incorrect number of products");
         });
-    const req = httpTestingController.expectOne('https://run.mocky.io/v3/cb2bea6f-ed59-4329-8d83-b3ba5e7753e6');
+    const req = httpTestingController.expectOne('https://run.mocky.io/v3/b5bf0d64-4474-4966-ae5e-5f42e246bc99');
     expect(req.request.method).toEqual("GET");
 
   });
